@@ -17,7 +17,7 @@ public class Path {
 	}
 
 	public boolean checkPath(String source, String destination) {
-		System.out.println(routes.get(new Source(source)));
+		if(routes.get(new Source(source)) == null) return false;
 		return routes.get(new Source(source)).indexOf(destination) >= 0;
 
 		// return routes.get(new Source(source)) == destination;
