@@ -34,4 +34,9 @@ public class Path {
 			System.out.println("" + source + routes.get(source));
 		}
 	}
+
+	public boolean hasSource (String city) {
+		if(routes.get(new Source(city)) == null) return false;
+		return true;
+	}
 }

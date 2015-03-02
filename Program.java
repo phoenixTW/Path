@@ -7,6 +7,14 @@ class Program {
 		path.insertPath("Bangalore", "Singapore");
 		path.insertPath("Bangalore", "Tokyo");
 
-		System.out.println(path.checkPath(source, destination));
+		boolean hasPath = path.checkPath(source, destination);
+		
+		if (hasPath == false) {
+			if(!path.hasSource(destination)) System.out.println("No city named '" + source + "' in database");
+			else System.out.println("No city named '" + destination + "' in database");
+			return;
+		}
+
+		System.out.println(hasPath);
 	}
 }
