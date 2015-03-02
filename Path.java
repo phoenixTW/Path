@@ -9,8 +9,12 @@ public class Path {
 	}
 
 	public boolean checkPath(String source, String destination) {
-		Source src = new Source(source);
-		System.out.println(">>>>>>>>>>>>>>>>>>>>" + routes.get(src).getName());
-		return destination == this.routes.get(src).getName();
+		return routes.get(new Source(source)).equals(new Destination(destination));
+	}
+
+	public void showMap() {
+		for (Source source : routes.keySet() ) {
+			System.out.println("" + source + routes.get(source));
+		}
 	}
 }
