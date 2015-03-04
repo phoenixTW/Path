@@ -14,6 +14,11 @@ echo "------------------Database TEST--------------------------------"
 java -cp ".;junit-4.10.jar" org.junit.runner.JUnitCore DatabaseTest
 echo $?
 
+echo "------------------Library TEST--------------------------------"
+
+java -cp ".;junit-4.10.jar" org.junit.runner.JUnitCore LibTest
+echo $?
+
 echo "--------------------- COMPLETED ---------------------------------"
 
 rm -f *.class

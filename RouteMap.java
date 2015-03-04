@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RouteMap {
-	Map<City, List> routes = new HashMap<City, List>();
+	Map<City, List<String>> routes = new HashMap<City, List<String>>();
 	List<String> possiblePath = new ArrayList<String>();
 
 	public void insertPath (String source, String destination) {
@@ -26,22 +26,49 @@ public class RouteMap {
 			this.routes.put(new City(place2), new ArrayList<String>());
 	}
 
-	public boolean hasPossiblePath (String source, String destination) {
-		return tractPath(source, destination);
+	public void initStorage (String source) {		
+		possiblePath = new ArrayList<String>();
+		possiblePath.add(source);
 	}
 
-	public boolean tractPath (String source, String destination) {
-		possiblePath.add(source);
+	public boolean hasPossiblePath (String source, String destination) {
+		initStorage(source);
+		boolean hasAnyPath = trackPath(source, destination);
+		possiblePath = reversePath(source);
+		return hasAnyPath;
+	}
 
-		if(this.hasPath(source, destination)) return true;
-
-		for (int counter = 0; counter < routes.get(new City(source)).size(); counter++) {
-			String city = (String)(routes.get(new City(source)).get(counter));
-			
-			if(!possiblePath.contains(city))
-				if(tractPath(city, destination)) return true;
+	public boolean trackPath(String source, String destination) {
+		if(hasPath(source, destination)) {
+			possiblePath.add(destination);
+			return true;
 		}
 
+		for (String city : routes.get(new City(source))) {
+			if((!(possiblePath.indexOf(city) >= 0)) && trackPath(city,destination)) {
+				possiblePath.add(city);
+				return true;
+			}
+		}
 		return false;
+
+	}
+
+	public void showPossiblePath() {
+		System.out.println(possiblePath);
+	}
+
+	public List<String> reversePath(String source) {
+		List<String> path = new ArrayList<String>();
+		path.add(source);
+		for (int counter = (possiblePath.size() - 1); counter > 0; counter--) {
+			path.add(possiblePath.get(counter));
+		}
+
+		return path;
+	}
+
+	public boolean isCityPresent (City city) {
+		return routes.get(city) != null;
 	}
 }

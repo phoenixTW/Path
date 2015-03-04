@@ -2,7 +2,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class DatabaseTest {
-
 	@Test
 	public void check_direct_path_between_two_cities () {
 		RouteMap map = new RouteMap();
@@ -16,7 +15,7 @@ public class DatabaseTest {
 	}
 
 	@Test
-	public void check_any_possible_path_between_two_cities () {
+	public void check_any_possible_path_between_two_cities_01 () {
 		RouteMap map = new RouteMap();
 		map.insertPath("Bangalore", "Chennai");
 		map.insertPath("Bangalore", "Delhi");
@@ -24,5 +23,16 @@ public class DatabaseTest {
 
 		assertEquals(map.hasPossiblePath("Bangalore", "Chennai"), true);
 		assertEquals(map.hasPossiblePath("Bangalore", "Singapore"), true);
+		assertEquals(map.hasPossiblePath("Singapore", "Delhi"), true);
+	}
+
+	@Test
+	public void check_any_possible_path_between_two_cities_02 () {
+		RouteMap map = new RouteMap();
+		map.insertPath("Bangalore", "Chennai");
+		map.insertPath("Bangalore", "Delhi");
+		map.insertPath("Delhi", "Singapore");
+
+		assertEquals(true,map.hasPossiblePath("Singapore", "Bangalore"));
 	}
 }
