@@ -13,9 +13,9 @@ public class RouteMap {
 		routes.get(new City(destination)).add(new String(source));
 	}
 
-	public boolean hasPath (String source, String destination) {
-		if(routes.get(new City(source)) == null) return false;
-		return routes.get(new City(source)).indexOf(destination) >= 0;
+	public boolean hasPath (City source, City destination) {
+		if(routes.get(source) == null) return false;
+		return routes.get(source).indexOf(destination.getName()) >= 0;
 	}
 
 	public void addSource (String place1, String place2) {
@@ -52,7 +52,7 @@ public class RouteMap {
 	}
 
 	public boolean trackPath(String source, String destination) {
-		if(hasPath(source, destination)) {
+		if(hasPath(new City(source), new City(destination))) {
 			possiblePath.add(destination);
 			return true;
 		}

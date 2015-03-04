@@ -14,4 +14,8 @@ public class City {
 	public int hashCode() {
 		return city.hashCode();
 	}
+
+	public String getName () {
+		return this.city;
+	}
 }
