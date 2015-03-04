@@ -7,13 +7,7 @@ public class RouteMap {
 	Map<City, List> routes = new HashMap<City, List>();
 
 	public void insertPath (String source, String destination) {
-
-		if(routes.get(new City(source)) == null)
-			routes.put(new City(source), new ArrayList<String>());
-
-		if(routes.get(new City(destination)) == null)
-			this.routes.put(new City(destination), new ArrayList<String>());
-
+		addSource(source, destination);
 		routes.get(new City(source)).add(new String(destination));
 		routes.get(new City(destination)).add(new String(source));
 	}
@@ -21,5 +15,13 @@ public class RouteMap {
 	public boolean hasPath (String source, String destination) {
 		if(routes.get(new City(source)) == null) return false;
 		return routes.get(new City(source)).indexOf(destination) >= 0;
+	}
+
+	public void addSource (String place1, String place2) {
+		if(routes.get(new City(place1)) == null)
+			routes.put(new City(place1), new ArrayList<String>());		
+
+		if(routes.get(new City(place2)) == null)
+			this.routes.put(new City(place2), new ArrayList<String>());
 	}
 }
