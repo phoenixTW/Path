@@ -35,4 +35,15 @@ public class DatabaseTest {
 
 		assertEquals(true, map.hasPossiblePath(new City("Singapore"), new City("Bangalore")));
 	}
+
+	@Test
+	public void display_any_possible_path_between_two_cities () throws CityNotFoundException  {
+		RouteMap map = new RouteMap();
+		map.insertPath("Bangalore", "Chennai");
+		map.insertPath("Bangalore", "Delhi");
+		map.insertPath("Delhi", "Singapore");
+		String path = "Singapore->Delhi->Bangalore";
+
+		assertEquals(path, map.searchPath(new City("Singapore"), new City("Bangalore")));
+	}
 }
