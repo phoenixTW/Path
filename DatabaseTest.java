@@ -45,5 +45,14 @@ public class DatabaseTest {
 		String path = "Singapore->Delhi->Bangalore";
 
 		assertEquals(path, map.searchPath(new City("Singapore"), new City("Bangalore")));
+
+		map.insertPath("Singapore", "Hongkong");
+
+		path = "Hongkong->Singapore->Delhi->Bangalore";
+		assertEquals(path, map.searchPath(new City("Hongkong"), new City("Bangalore")));
+
+		path = "Bangalore->Delhi->Singapore->Hongkong";
+		assertEquals(path, map.searchPath(new City("Bangalore"), new City("Hongkong")));
+
 	}
 }

@@ -12,7 +12,7 @@ class Paths {
 		map.insertPath("Beijing", "Tokyo");
 		
 		try{
-			System.out.println(map.hasPossiblePath(source, destination));
+			System.out.println(map.searchPath(source, destination));
 		}
 
 		catch(CityNotFoundException e) {
