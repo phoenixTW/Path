@@ -31,34 +31,34 @@ public class RouteMap {
 		possiblePath.add(source);
 	}
 
-	public boolean hasPossiblePath (String source, String destination) throws CityNotFoundException {
+	public boolean hasPossiblePath (City source, City destination) throws CityNotFoundException {
 		if(!areCitiesPresent(source, destination)) return false;
-		initStorage(source);
+		initStorage(source.getName());
 		boolean hasAnyPath = trackPath(source, destination);
-		possiblePath = reversePath(source);
+		possiblePath = reversePath(source.getName());
 		return hasAnyPath;
 	}
 
-	public boolean areCitiesPresent(String source, String destination) throws CityNotFoundException {
-		if(!isCityPresent(new City(source))) {
-			throw new CityNotFoundException(source);
+	public boolean areCitiesPresent(City source, City destination) throws CityNotFoundException {
+		if(!isCityPresent(source)) {
+			throw new CityNotFoundException(source.getName());
 		}
 
-		if(!isCityPresent(new City(destination))) {
-			throw new CityNotFoundException(destination);
+		if(!isCityPresent(destination)) {
+			throw new CityNotFoundException(destination.getName());
 		}
 
 		return true;
 	}
 
-	public boolean trackPath(String source, String destination) {
-		if(hasPath(new City(source), new City(destination))) {
-			possiblePath.add(destination);
+	public boolean trackPath(City source, City destination) {
+		if(hasPath(source, destination)) {
+			possiblePath.add(destination.getName());
 			return true;
 		}
 
-		for (String city : routes.get(new City(source))) {
-			if((!(possiblePath.indexOf(city) >= 0)) && trackPath(city,destination)) {
+		for (String city : routes.get(source)) {
+			if((!(possiblePath.indexOf(city) >= 0)) && trackPath(new City(city),destination)) {
 				possiblePath.add(city);
 				return true;
 			}
