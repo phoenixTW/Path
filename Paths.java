@@ -11,12 +11,12 @@ class Paths {
 		map.insertPath("Seoul", "Beijing");
 		map.insertPath("Beijing", "Tokyo");
 		
-	// 	try{
-	// 		System.out.println(map.hasPossiblePath(source, destination));
-	// 	}
+		try{
+			System.out.println(map.hasPossiblePath(source, destination));
+		}
 
-	// 	catch(CityNotFoundException e) {
-	// 		System.out.println(e.message);
-	// 	}
+		catch(CityNotFoundException e) {
+			System.out.println(e.message);
+		}
 	}
 }
