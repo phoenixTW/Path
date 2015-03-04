@@ -15,7 +15,7 @@ public class DatabaseTest {
 	}
 
 	@Test
-	public void check_any_possible_path_between_two_cities_01 () {
+	public void check_any_possible_path_between_two_cities_01 () throws CityNotFoundException  {
 		RouteMap map = new RouteMap();
 		map.insertPath("Bangalore", "Chennai");
 		map.insertPath("Bangalore", "Delhi");
@@ -27,7 +27,7 @@ public class DatabaseTest {
 	}
 
 	@Test
-	public void check_any_possible_path_between_two_cities_02 () {
+	public void check_any_possible_path_between_two_cities_02 () throws CityNotFoundException  {
 		RouteMap map = new RouteMap();
 		map.insertPath("Bangalore", "Chennai");
 		map.insertPath("Bangalore", "Delhi");
