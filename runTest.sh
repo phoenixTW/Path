@@ -9,16 +9,9 @@ echo "running tests.."
 
 echo "------------------ACCEPTANCE TEST--------------------------------"
 
-echo "------------------Path TEST--------------------------------"
+echo "------------------Database TEST--------------------------------"
 
-java -cp ".;junit-4.10.jar" org.junit.runner.JUnitCore PathTest
-echo $?
-
-echo "------------------Unit TEST--------------------------------"
-
-echo "------------------Path Unit TEST--------------------------------"
-
-java -cp ".;junit-4.10.jar" org.junit.runner.JUnitCore PathUnitTest
+java -cp ".;junit-4.10.jar" org.junit.runner.JUnitCore DatabaseTest
 echo $?
 
 echo "--------------------- COMPLETED ---------------------------------"
