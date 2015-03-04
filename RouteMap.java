@@ -5,6 +5,7 @@ import java.util.List;
 
 public class RouteMap {
 	Map<City, List> routes = new HashMap<City, List>();
+	List<String> possiblePath = new ArrayList<String>();
 
 	public void insertPath (String source, String destination) {
 		addSource(source, destination);
@@ -23,5 +24,24 @@ public class RouteMap {
 
 		if(routes.get(new City(place2)) == null)
 			this.routes.put(new City(place2), new ArrayList<String>());
+	}
+
+	public boolean hasPossiblePath (String source, String destination) {
+		return tractPath(source, destination);
+	}
+
+	public boolean tractPath (String source, String destination) {
+		possiblePath.add(source);
+
+		if(this.hasPath(source, destination)) return true;
+
+		for (int counter = 0; counter < routes.get(new City(source)).size(); counter++) {
+			String city = (String)(routes.get(new City(source)).get(counter));
+			
+			if(!possiblePath.contains(city))
+				if(tractPath(city, destination)) return true;
+		}
+
+		return false;
 	}
 }

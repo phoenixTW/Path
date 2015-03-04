@@ -14,4 +14,15 @@ public class DatabaseTest {
 		map.insertPath("Bangalore", "Delhi");
 		assertEquals(map.hasPath("Bangalore", "Delhi"), true);
 	}
+
+	@Test
+	public void check_any_possible_path_between_two_cities () {
+		RouteMap map = new RouteMap();
+		map.insertPath("Bangalore", "Chennai");
+		map.insertPath("Bangalore", "Delhi");
+		map.insertPath("Delhi", "Singapore");
+
+		assertEquals(map.hasPossiblePath("Bangalore", "Chennai"), true);
+		assertEquals(map.hasPossiblePath("Bangalore", "Singapore"), true);
+	}
 }
