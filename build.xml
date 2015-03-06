@@ -3,7 +3,7 @@
         JAVA Build file for Project
     </description>
 
-    <property name="src"     value="."/>
+    <property name="src" value="."/>
     <property name="classes" value="classes"/>
     <property name="testrunner" value="DatabaseTest"/>
 
