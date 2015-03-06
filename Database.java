@@ -29,4 +29,13 @@ class Database{
 		
 		return text;
 	}
+
+	public List<String> getPaths (String data) {
+		String[] lines = data.split("\r\n");
+
+		for (String line : lines)
+			paths.add(line);
+
+		return paths;
+	}
 }
