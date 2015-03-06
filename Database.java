@@ -39,7 +39,8 @@ class Database{
 		return paths;
 	}
 
-	public RouteMap insertPath (String data) {
+	public RouteMap insertPath () throws IOException {
+		String data = readFile();
 		RouteMap map = new RouteMap();
 		List<String> collectionOfPaths = getPaths(data);
 		for (String path : collectionOfPaths) {

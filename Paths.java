@@ -1,15 +1,12 @@
-class Paths {
-	public static void main(String[] args) {
-		RouteMap map = new RouteMap();
+import java.io.*;
 
-		City source = new City(new String(args[0]));
-		City destination = new City(new String(args[1]));
-		
-		map.insertPath("Bangalore", "Singapore");
-		map.insertPath("Singapore", "Seoul");
-		map.insertPath("Singapore", "Dubai");
-		map.insertPath("Seoul", "Beijing");
-		map.insertPath("Beijing", "Tokyo");
+class Paths {
+	public static void main(String[] args) throws IOException {
+		Database database = new Database(args[1]);
+		RouteMap map = database.insertPath();
+
+		City source = new City(new String(args[2]));
+		City destination = new City(new String(args[3]));
 		
 		try{
 			System.out.println(map.searchPath(source, destination));
