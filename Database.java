@@ -38,4 +38,25 @@ class Database{
 
 		return paths;
 	}
+
+	public RouteMap insertPath (String data) {
+		RouteMap map = new RouteMap();
+		List<String> collectionOfPaths = getPaths(data);
+		for (String path : collectionOfPaths) {
+			String[] words = splitByComma(path);
+			map.insertPath(words[0], words[1]);
+		}
+
+		return map;
+	}
+
+	private String[] splitByComma (String line) {
+		String[] words = line.split(",");
+
+		for (int count = 0; count < words.length; count++) {
+			words[count] = words[count].trim();
+		}
+
+		return words;
+	}
 }

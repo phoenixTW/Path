@@ -21,4 +21,13 @@ public class DatabaseTest {
 		assertEquals(paths.get(0), "Bangalore, Mumbai");
 		assertEquals(paths.get(1), "Bangalore, Chennai");
 	}
+
+	@Test
+	public void insertPath_should_insert_datas_as_paths_in_routeMap () throws IOException{
+		Database database = new Database("one.txt");
+		String data = database.readFile();
+		RouteMap map = database.insertPath(data);
+		assertEquals(map.hasPath(new City("Bangalore"), new City("Chennai")), true);
+		assertEquals(map.hasPath(new City("Bangalore"), new City("Mumbai")), true);
+	}
 }
