@@ -8,7 +8,7 @@
     <property name="testrunner" value="DatabaseTest"/>
 
     <target name="clean">
-        <delete dir="${classes}"/>
+        <delete failonerror="false" dir="${classes}"/>
     </target>
 
     <target name="compile">
