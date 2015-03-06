@@ -35,7 +35,8 @@ public class RouteMap {
 		if(!areCitiesPresent(source, destination)) return false;
 	
 		initStorage(source.getName());
-		boolean hasAnyPath = trackPath(source, destination);
+		List<String> visitedPaths = new ArrayList<String>();
+		boolean hasAnyPath = trackPath(source, destination, visitedPaths);
 		possiblePath = reversePath(source.getName());
 		return hasAnyPath;
 	}
@@ -50,12 +51,16 @@ public class RouteMap {
 		return true;
 	}
 
-	public boolean trackPath(City source, City destination) {
+	public boolean trackPath(City source, City destination, List<String> visitedPaths) {
+		visitedPaths.add(source.getName());
+
 		if(hasPath(source, destination))
 			return possiblePath.add(destination.getName()) && true;
 
 		for (String city : routes.get(source))
-			if((!(possiblePath.indexOf(city) >= 0)) && trackPath(new City(city),destination))
+			if((!(possiblePath.indexOf(city) >= 0))
+				&& (!(visitedPaths.indexOf(city) >= 0)) 
+				&& trackPath(new City(city),destination, visitedPaths))
 				return possiblePath.add(city) && true;
 
 		return false;
@@ -79,7 +84,7 @@ public class RouteMap {
 		return routes.get(city) != null;
 	}
 
-	public String searchPath (City source, City destination) throws CityNotFoundException {
+	public String searchPath (City source, City destination) throws CityNotFoundException	 {
 		boolean hasPath = hasPossiblePath(source, destination);
 		String path = stringifyPath();
 		return path;
