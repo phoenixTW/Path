@@ -1,0 +1,35 @@
+<project name="Path" basedir="." default="runtest">
+    <description>
+        JAVA Build file for Project
+    </description>
+
+    <property name="src"     value="."/>
+    <property name="classes" value="classes"/>
+    <property name="testrunner" value="DatabaseTest"/>
+
+    <target name="clean">
+        <delete dir="${classes}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes}"/>
+        <javac srcdir="${src}" destdir="${classes}"
+            classpath="junit-4.10.jar"
+            includeantruntime="yes"   
+        />
+    </target>
+
+    <target name="runtest">
+        <echo> runing test...........</echo>
+        <java classpath="${classes};junit-4.10.jar" classname="org.junit.runner.JUnitCore">
+          <arg value="${testrunner}"/>
+        </java>
+    </target>
+
+    <target name="main">
+        <antcall target="clean"/>
+        <antcall target="compile"/>
+        <antcall target="runtest"/>
+        <antcall target="clean"/>
+    </target>
+</project>
