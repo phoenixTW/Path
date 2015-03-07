@@ -4,7 +4,7 @@ class Paths {
 	public static void main(String[] args) throws IOException {
 		if(args.length == 6)
 			processWithCity(args);
-		else
+		if(args.length == 4)
 			processWithoutCity(args);
 	}
 
@@ -12,8 +12,8 @@ class Paths {
 		Database database = new Database(args[1]);
 		RouteMap map = database.insertPath();
 
-		City source = new City(new String(args[2]));
-		City destination = new City(new String(args[3]));
+		City source = new City(new String(args[args.length - 1]));
+		City destination = new City(new String(args[args.length - 2]));
 		
 		try{
 			System.out.println(map.searchPath(source, destination));

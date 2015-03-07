@@ -95,8 +95,13 @@ public class RouteMap {
 		String path = "";
 		for (int counter = 0; counter < possiblePath.size(); counter++) {
 			String cityName = possiblePath.get(counter);
-			String country = location.get(new City(cityName)).getName();
-			String cityLocation = cityName + "[" + country + "]";
+			String cityLocation = cityName;
+			
+			if (location.get(new City(cityName)) != null) {
+				String country = location.get(new City(cityName)).getName() ;
+				cityLocation = cityName + "[" + country + "]";				
+			}
+			
 
 			if(counter < possiblePath.size() - 1)
 				path += cityLocation + "->";
