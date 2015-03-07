@@ -32,11 +32,10 @@ public class RouteMap {
 		possiblePath.add(source);
 	}
 
-	public boolean hasPossiblePath (City source, City destination) throws CityNotFoundException {
+	public boolean hasPossiblePath (City source, City destination, List<String> visitedPaths) throws CityNotFoundException {
 		if(!areCitiesPresent(source, destination)) return false;
 	
 		initStorage(source.getName());
-		List<String> visitedPaths = new ArrayList<String>();
 		boolean hasAnyPath = trackPath(source, destination, visitedPaths);
 		possiblePath = reversePath(source.getName());
 		return hasAnyPath;
@@ -85,8 +84,13 @@ public class RouteMap {
 		return routes.get(city) != null;
 	}
 
-	public String searchPath (City source, City destination) throws CityNotFoundException	 {
-		boolean hasPath = hasPossiblePath(source, destination);
+	public String searchPath (City source, City destination) throws CityNotFoundException {
+		List<String> visitedPaths = new ArrayList<String>();
+		return manupulatePath(source, destination, visitedPaths);
+	}
+
+	private String manupulatePath(City source, City destination, List<String> visitedPaths) throws CityNotFoundException {
+		hasPossiblePath(source, destination, visitedPaths);
 		String path = stringifyPath();
 		return path;
 	}
@@ -128,4 +132,28 @@ public class RouteMap {
 
 		return words;
 	}
+
+	public List<String> findAllPaths(City source, City destination) throws CityNotFoundException {
+		List<String> allPaths = new ArrayList<String>();
+		String city_name = source.getName();
+		String countryOfSource = location.get(source).getName();
+		int count = 0;
+
+		for (String city : routes.get(source)) {
+			List<String> visitedPaths = new ArrayList<String>();
+			visitedPaths.add(city_name);
+			String path = city_name + "[" + countryOfSource + "]->" + manupulatePath(new City(city), destination, visitedPaths);
+			// initStorage(source.getName());
+			allPaths.add(++count + ". " + path);
+		}
+
+		return allPaths;
+	}
+	// public String searchPath (City source, City destination) throws CityNotFoundException {
+	// 	List<String> visitedPaths = new ArrayList<String>();
+	// 	hasPossiblePath(source, destination, visitedPaths);
+	// 	String path = stringifyPath();
+	// 	return path;
+	// }
+
 }

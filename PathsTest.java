@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -21,9 +23,9 @@ public class PathsTest {
 		map.insertPath("Bangalore", "Delhi");
 		map.insertPath("Delhi", "Singapore");
 
-		assertEquals(map.hasPossiblePath(new City("Bangalore"), new City("Chennai")), true);
-		assertEquals(map.hasPossiblePath(new City("Bangalore"), new City("Singapore")), true);
-		assertEquals(map.hasPossiblePath(new City("Singapore"), new City("Delhi")), true);
+		assertEquals(map.hasPossiblePath(new City("Bangalore"), new City("Chennai"), new ArrayList<String>()), true);
+		assertEquals(map.hasPossiblePath(new City("Bangalore"), new City("Singapore"), new ArrayList<String>()), true);
+		assertEquals(map.hasPossiblePath(new City("Singapore"), new City("Delhi"), new ArrayList<String>()), true);
 	}
 
 	@Test
@@ -33,7 +35,7 @@ public class PathsTest {
 		map.insertPath("Bangalore", "Delhi");
 		map.insertPath("Delhi", "Singapore");
 
-		assertEquals(true, map.hasPossiblePath(new City("Singapore"), new City("Bangalore")));
+		assertEquals(true, map.hasPossiblePath(new City("Singapore"), new City("Bangalore"), new ArrayList<String>()));
 	}
 
 	@Test
@@ -69,4 +71,48 @@ public class PathsTest {
 		path = "Bangalore[India]->Delhi[India]->Singapore[Singapore]->Hongkong[Hongkong]";
 		assertEquals(path, map.searchPath(new City("Bangalore"), new City("Hongkong")));		
 	}
+
+	@Test
+	public void display_all_possible_path_between_Bangalore_and_Hongkong() throws CityNotFoundException {
+		RouteMap map = new RouteMap();
+		map.insertPath("Bangalore", "Chennai");
+		map.insertPath("Bangalore", "Singapore");
+		map.insertPath("Chennai", "Delhi");
+		map.insertPath("Delhi", "Singapore");
+		map.insertPath("Singapore", "Hongkong");
+		map.insertPath("Singapore", "Chennai");
+
+		String[] cityRespectiveCountry = {"Bangalore, India", 
+		"Chennai, India", "Delhi, India", "Singapore, Singapore", "Hongkong, Hongkong"};
+
+		map.addCountry(cityRespectiveCountry);
+
+		List<String> paths = new ArrayList<String>();
+		paths.add("1. Bangalore[India]->Chennai[India]->Delhi[India]->Singapore[Singapore]->Hongkong[Hongkong]");
+		paths.add("2. Bangalore[India]->Singapore[Singapore]->Hongkong[Hongkong]");
+
+		assertEquals(paths, map.findAllPaths(new City("Bangalore"), new City("Hongkong")));
+	}
+
+	// @Test
+	// public void display_all_possible_path_between_Hongkong_and_Bangalore() throws CityNotFoundException {
+	// 	RouteMap map = new RouteMap();
+	// 	map.insertPath("Bangalore", "Chennai");
+	// 	map.insertPath("Bangalore", "Singapore");
+	// 	map.insertPath("Chennai", "Delhi");
+	// 	map.insertPath("Delhi", "Singapore");
+	// 	map.insertPath("Singapore", "Hongkong");
+	// 	map.insertPath("Singapore", "Chennai");
+
+	// 	String[] cityRespectiveCountry = {"Bangalore, India", 
+	// 	"Chennai, India", "Delhi, India", "Singapore, Singapore", "Hongkong, Hongkong"};
+
+	// 	map.addCountry(cityRespectiveCountry);
+
+	// 	List<String> paths = new ArrayList<String>();
+	// 	paths.add("1. Bangalore[India]->Chennai[India]->Delhi[India]->Singapore[Singapore]->Hongkong[Hongkong]");
+	// 	paths.add("2. Bangalore[India]->Singapore[Singapore]->Hongkong[Hongkong]");
+
+	// 	assertEquals(paths, map.findAllPaths(new City("Bangalore"), new City("Hongkong")));
+	// }
 }
