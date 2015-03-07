@@ -88,8 +88,8 @@ public class PathsTest {
 		map.addCountry(cityRespectiveCountry);
 
 		List<String> paths = new ArrayList<String>();
-		paths.add("1. Bangalore[India]->Chennai[India]->Delhi[India]->Singapore[Singapore]->Hongkong[Hongkong]");
-		paths.add("2. Bangalore[India]->Singapore[Singapore]->Hongkong[Hongkong]");
+		paths.add("Bangalore[India]->Chennai[India]->Delhi[India]->Singapore[Singapore]->Hongkong[Hongkong]");
+		paths.add("Bangalore[India]->Singapore[Singapore]->Hongkong[Hongkong]");
 
 		assertEquals(paths, map.findAllPaths(new City("Bangalore"), new City("Hongkong")));
 	}

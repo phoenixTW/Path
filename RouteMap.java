@@ -137,14 +137,13 @@ public class RouteMap {
 		List<String> allPaths = new ArrayList<String>();
 		String city_name = source.getName();
 		String countryOfSource = location.get(source).getName();
-		int count = 0;
 
 		for (String city : routes.get(source)) {
 			List<String> visitedPaths = new ArrayList<String>();
 			visitedPaths.add(city_name);
 			String path = city_name + "[" + countryOfSource + "]->" + manupulatePath(new City(city), destination, visitedPaths);
 			// initStorage(source.getName());
-			allPaths.add(++count + ". " + path);
+			allPaths.add(path);
 		}
 
 		return allPaths;
