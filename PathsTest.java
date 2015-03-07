@@ -42,20 +42,31 @@ public class PathsTest {
 		map.insertPath("Bangalore", "Chennai");
 		map.insertPath("Bangalore", "Delhi");
 		map.insertPath("Delhi", "Singapore");
-		String path = "Singapore->Delhi->Bangalore";
+
+		String[] cityRespectiveCountry = {"Bangalore, India", "Chennai, India", "Delhi, India", "Singapore, Singapore"};
+		map.addCountry(cityRespectiveCountry);
+		String path = "Singapore[Singapore]->Delhi[India]->Bangalore[India]";
 
 		assertEquals(path, map.searchPath(new City("Singapore"), new City("Bangalore")));
+	}
 
+	@Test
+	public void display_any_possible_path_between_Hongkong_and_Bangalore_and_Vice_versa () throws CityNotFoundException {
+		RouteMap map = new RouteMap();
+		map.insertPath("Bangalore", "Chennai");
+		map.insertPath("Bangalore", "Delhi");
+		map.insertPath("Delhi", "Singapore");
 		map.insertPath("Singapore", "Hongkong");
 
-		path = "Hongkong->Singapore->Delhi->Bangalore";
+		String[] cityRespectiveCountry = {"Bangalore, India", 
+		"Chennai, India", "Delhi, India", "Singapore, Singapore", "Hongkong, Hongkong"};
+
+		map.addCountry(cityRespectiveCountry);
+
+		String path = "Hongkong[Hongkong]->Singapore[Singapore]->Delhi[India]->Bangalore[India]";
 		assertEquals(path, map.searchPath(new City("Hongkong"), new City("Bangalore")));
 
-		path = "Bangalore->Delhi->Singapore->Hongkong";
-		assertEquals(path, map.searchPath(new City("Bangalore"), new City("Hongkong")));
-
-		map.insertPath("Hongkong", "Malayshia");
-		path = "Bangalore->Delhi->Singapore->Hongkong->Malayshia";
-		assertEquals(path, map.searchPath(new City("Bangalore"), new City("Malayshia")));
+		path = "Bangalore[India]->Delhi[India]->Singapore[Singapore]->Hongkong[Hongkong]";
+		assertEquals(path, map.searchPath(new City("Bangalore"), new City("Hongkong")));		
 	}
 }

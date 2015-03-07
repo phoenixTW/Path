@@ -6,6 +6,7 @@ import java.util.List;
 public class RouteMap {
 	Map<City, List<String>> routes = new HashMap<City, List<String>>();
 	List<String> possiblePath = new ArrayList<String>();
+	Map<City, Country> location = new HashMap<City, Country>();
 
 	public void insertPath (String source, String destination) {
 		addSource(source, destination);
@@ -93,12 +94,33 @@ public class RouteMap {
 	private String stringifyPath () {
 		String path = "";
 		for (int counter = 0; counter < possiblePath.size(); counter++) {
+			String cityName = possiblePath.get(counter);
+			String country = location.get(new City(cityName)).getName();
+			String cityLocation = cityName + "[" + country + "]";
+
 			if(counter < possiblePath.size() - 1)
-				path += possiblePath.get(counter) + "->";
+				path += cityLocation + "->";
 			else
-				path += possiblePath.get(counter);
+				path += cityLocation;
 		}
 
 		return path;
+	}
+
+	public void addCountry(String[] countryList) {
+		for (String list : countryList) {
+			String[] place = splitByComma(list);
+			location.put(new City(place[0]), new Country(place[1]));
+		}
+	}
+
+	private String[] splitByComma (String line) {
+		String[] words = line.split(",");
+
+		for (int count = 0; count < words.length; count++) {
+			words[count] = words[count].trim();
+		}
+
+		return words;
 	}
 }

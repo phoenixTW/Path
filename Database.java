@@ -4,15 +4,22 @@ import java.util.List;
 
 class Database{
 	String fileLocation = null;
+	String countryLocation = null;
 	List<String> paths = new ArrayList<String>();
+	List<String> countries = new ArrayList<String>();
 
 	Database (String pathName){
 		this.fileLocation = pathName;
 	}
 
-	public String readFile () throws IOException {
+	Database (String pathLocation, String countryFileLocation){
+		this.fileLocation = pathLocation;
+		this.countryLocation = countryFileLocation;
+	}
+
+	public String readFile (String filename) throws IOException {
 		String text = null;
-		File thisFile = new File("./" + fileLocation);
+		File thisFile = new File("./" + filename);
 		FileReader fr = null;
 		
 		try {
@@ -39,13 +46,39 @@ class Database{
 		return paths;
 	}
 
+	public List<String> getCountry (String data) {
+		String[] lines = data.split("\r\n");
+
+		for (String line : lines)
+			countries.add(line);
+
+		return countries;
+	}
+
 	public RouteMap insertPath () throws IOException {
-		String data = readFile();
+		String data = readFile(fileLocation);
 		RouteMap map = new RouteMap();
+
+		return (countryLocation != null) ? whenCountryPresent(map, data) : whenCountryNotPresent(map, data);
+	}
+
+	private RouteMap whenCountryPresent(RouteMap map, String cityData) throws IOException {
+		map = whenCountryNotPresent(map, cityData);
+		
+		String data = readFile(countryLocation);
+		String[] cityWithCountries = data.split("\r\n");
+
+		map.addCountry(cityWithCountries);
+
+		return map;
+	}
+
+	private RouteMap whenCountryNotPresent(RouteMap map, String data) throws IOException {
 		List<String> collectionOfPaths = getPaths(data);
+
 		for (String path : collectionOfPaths) {
-			String[] words = splitByComma(path);
-			map.insertPath(words[0], words[1]);
+ 			String[] words = splitByComma(path);
+ 			map.insertPath(words[0], words[1]);
 		}
 
 		return map;
